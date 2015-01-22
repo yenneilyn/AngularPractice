@@ -71,3 +71,4 @@ module.exports = function(lineman) {
 ```
 
 Hopefully this helps you get up and running with AngularJS!
+# AngularPractice
