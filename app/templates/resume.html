@@ -1,0 +1,17 @@
+<h2>This is about me!</h2>
+<div>
+	<button style="margin-left: 450px;" ng-click="loadResume()">Resume</button>
+</div>
+<div style="margin: 20px 0 20px 320px;" ng-show="showButtons">
+		<button ng-click="loadAboutMe()">About Me</button>
+		<button ng-click="loadUni()">University</button>
+		<button>Company</button>
+</div>
+<div>	
+	<p style="margin-left: 300px;" ng-show="showAboutMe">{{aboutMe}}</p>
+	<ul ng-repeat="uni in universities" ng-show="showLoadUni">
+		<li>{{uni.name}}</li>
+		<li>{{uni.degree}}</li>
+	</ul>
+</div>
+
