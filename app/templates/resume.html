@@ -1,17 +1,119 @@
-<h2>This is about me!</h2>
-<div>
-	<button style="margin-left: 450px;" ng-click="loadResume()">Resume</button>
+<nav class="navbar navbar-default navbar-fixed-top">
+<div class="container">
+	<div class="navbar-header page-scroll">
+		<a>Yen Nei</a>
+	</div>
+	<div class="collapse navbar-collapse in" id="scroll-content">
+		<ul class="nav navbar-nav navbar-right">
+			<li class="page-scroll">
+				<a href="#main">Main</a>
+			</li>	
+			<li class="page-scroll">
+				<a href="#about">About</a>
+			</li>
+			<li class="page-scroll">
+				<a href="#contact">Contact</a>
+			</li>
+		</ul>
+	</div>
 </div>
-<div style="margin: 20px 0 20px 320px;" ng-show="showButtons">
-		<button ng-click="loadAboutMe()">About Me</button>
-		<button ng-click="loadUni()">University</button>
-		<button>Company</button>
-</div>
-<div>	
-	<p style="margin-left: 300px;" ng-show="showAboutMe">{{aboutMe}}</p>
-	<ul ng-repeat="uni in universities" ng-show="showLoadUni">
-		<li>{{uni.name}}</li>
-		<li>{{uni.degree}}</li>
-	</ul>
-</div>
+</nav>
+<header id="main">
+	<div class="container">
+		<img src="img/yen.jpg" alt="Yen's photo" style="height:200px;weight:200px;">
+		<div class="intro-text">
+			<span class="name">About Me</span>
+			<span class="skills">Software Developer</span>
+		</div>
+		<br>
+		<button class="btn btn-info" ng-click="open()" >Resume</button>
+	</div>
+</header>
+<section id="about">
+	<div class="container">
+		<div class="rows">
+			<div class="col-lg-12 text-center">
+				<h2>About This Website</h2>
+				<hr>
+				<p>
+					I have always wanted to build a website to talk about me.
+					Now, here it is. I have applied the knowledges that I have learned over the years to build this website. Those knowledges includes HTML, CSS and JS (AngularJS). Also, I have used Twitter Bootstrap and the theme from Freelancer.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+<section id="contact">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2>Contact Me</h2>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<form name="messageForm" novalidate>
+					<div class="form-group">
+						<input type="text" name="name" class="form-control" ng-model="user.name" placeholder="Name" required>
+
+				        <span ng-show="messageForm.name.$invalid && !messageForm.name.$pristine" style="color:red;">You name is required.</span>
+					</div>
+					<div class="form-group">
+						<input type="text" name="email" class="form-control" ng-model="user.email" ng-change="validateEmail()" placeholder="Email" required>
+
+						<span ng-show="messageForm.email.$invalid && !messageForm.email.$pristine" style="color:red;">You email is required.</span>
+					</div>
+					<div class="form-group">
+						<textarea rows="5" name="message" class="form-control" ng-model="user.message" placeholder="Message" required></textarea>
+
+						<span ng-show="messageForm.message.$invalid && !messageForm.message.$pristine" style="color:red;">You message is required.</span>
+					</div>
+				</form>
+				<button class="btn btn-success" ng-click ="update(user)" ng-disabled="formNotValid || messageForm.$invalid">Submit</button>
+			</div>
+		</div>
+	</div>
+</section>
+<script type="text/ng-template" id="myResume.html">
+        <div class="modal-header">
+            <h3 class="modal-title">My Resume</h3>
+        </div>
+        <div class="modal-body">
+        <p>Education</p>
+          <div class="panel-group" id="accordion">
+	        	<div class="panel panel-default" ng-repeat="uni in universities" >
+	       			<div class="panel-heading">
+	       				<h4 class="panel-title">
+	       					<div data-parent="#accordion" >{{uni.name}}</div>
+	       				</h4>
+	       				<center>{{uni.degree}}</center>
+	       				<center>{{uni.duration}}</center>
+	    			</div>
+    			</div>
+	        </div>
+        <p>Work Experience</p>
+	        <div class="panel-group" id="accordion">
+	        	<div class="panel panel-default" ng-repeat="company in companies" >
+	       			<div class="panel-heading" style="cursor: pointer;" ng-click="loadDetails(company.id)">
+	       				<h4 class="panel-title">
+	       					<div data-parent="#accordion" >{{company.name}}</div>
+	       				</h4>
+	       				<center>{{company.duration}}</center>
+	    			</div>
+	    			<div class="panel-collapse collapse in" ng-show="company.id == selectedCompany.id && hide" >
+	       		  		<div class="panel-body">
+	       		  		<span style="font-weight:bold">{{selectedCompany.position}}</span>
+	       		  		<ul>
+	       		  			<li ng-repeat="duty in selectedCompany.duties">{{duty}}</li>
+	       		  			</ul>
+	       		  		</div>
+	   				</div>
+    			</div>
+	        </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+        </div>
+</script>
 
